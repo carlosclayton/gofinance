@@ -1,21 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {Wellcome} from "./src/components/Wellcome";
+import {Dashboard} from "./src/pages/Dashboard";
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-    <Wellcome title="App configurado" />
-    </View>
+      <Dashboard></Dashboard>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
