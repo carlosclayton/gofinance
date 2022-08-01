@@ -13,6 +13,7 @@ import {
     HighLightCards
 } from './styles'
 import {HighLightCard} from "../../components/HighLightCard";
+
 export function Dashboard(){
     return(
         <Container>
@@ -31,11 +32,10 @@ export function Dashboard(){
 
             </Header>
             <HighLightCards
-
             >
-                <HighLightCard />
-                <HighLightCard />
-                <HighLightCard />
+                <HighLightCard type="up" title="Entrada" amount="R$ 17.400,00" lastTransaction="Última entrada dia 13 de outubro" />
+                <HighLightCard type="down" title="Saída" amount="R$ 1.259,00" lastTransaction="Última saída dia 10 de setembro" />
+                <HighLightCard type="total" title="Total" amount="R$ 19.140,00" lastTransaction="1 de setembro à 30 de outubro"/>
             </HighLightCards>
         </Container>
     )
