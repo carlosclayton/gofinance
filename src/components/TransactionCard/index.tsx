@@ -1,18 +1,20 @@
 import React from "react";
 import {Amount, Category, CategoryName, Container, Date, Footer, Icon, Title} from './styles'
+import {DataProps} from "../../interfaces/DataProps";
 
-export function TransactionCard() {
+
+export function TransactionCard({data} : DataProps) {
     return (
         <Container>
-            <Title>Desenvolvimento de sites</Title>
-            <Amount>R$ 12.000,00</Amount>
+            <Title>{data.title}</Title>
+            <Amount>{data.amount}</Amount>
 
             <Footer>
                 <Category>
                     <Icon name="dollar-sign"/>
-                    <CategoryName>Vendas</CategoryName>
+                    <CategoryName>{data.category.name}</CategoryName>
                 </Category>
-                <Date>13/10/2022</Date>
+                <Date>{data.date}</Date>
             </Footer>
         </Container>
     );

@@ -7,6 +7,7 @@ export const Container = styled.View`
   flex: 1;
   background-color: ${({theme}) => theme.colors.background};
   flex-direction: row;
+  
 `;
 
 export const UserWrapper = styled.View`
@@ -81,6 +82,10 @@ export const Title = styled.Text`
   margin-bottom: 10px;
   font-size: ${RFValue(18)}px;
   font-family: ${({theme}) => theme.fonts.regular};
+`;
+
+export const TransactionList = styled.FlatList`
+  
 `;
 
 
