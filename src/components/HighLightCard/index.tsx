@@ -19,15 +19,15 @@ const icon = {
 
 export function HighLightCard({title, amount, lastTransaction,type} : HighLight){
     return (
-        <Container>
+        <Container type={type}>
           <Header>
-              <Title>{title}</Title>
+              <Title type={type}>{title}</Title>
               <Icon name={icon[type]} type={type}></Icon>
           </Header>
 
             <Footer>
-            <Amount>{amount}</Amount>
-                <LastTransaction>{lastTransaction}</LastTransaction>
+            <Amount type={type}>{amount}</Amount>
+                <LastTransaction type={type}>{lastTransaction}</LastTransaction>
             </Footer>
         </Container>
     )

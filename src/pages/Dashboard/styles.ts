@@ -6,14 +6,13 @@ import {getStatusBarHeight} from "react-native-iphone-x-helper";
 export const Container = styled.View`
   flex: 1;
   background-color: ${({theme}) => theme.colors.background};
-  justify-content: center;
   flex-direction: row;
 `;
 
 export const UserWrapper = styled.View`
   width: 100%;
   padding: 0 24px;
-  margin-top: ${getStatusBarHeight() + RFValue(28)}px;
+  margin-top: ${getStatusBarHeight() + RFValue(48)}px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -40,6 +39,8 @@ export const Photo = styled.Image`
 `;
 
 export const User = styled.View`
+    margin-left: 17px;
+  
 `;
 
 export const UserGretting = styled.Text`
@@ -62,9 +63,24 @@ export const Icon = styled(Feather)`
 export const HighLightCards = styled.ScrollView.attrs({
     horizontal: true,
     showsHorizontalScrollIndicator: false,
-    contentContainerStyle:  {paddingHorizontal: 24}
+    contentContainerStyle: {paddingHorizontal: 25}
 })`
-    width: 100%;
-    position: absolute;
-  margin-top: ${RFPercentage(20)}px;
+  width: 100%;
+  position: absolute;
+  margin-top: ${RFPercentage(25)}px;
 `;
+
+export const Transactions = styled.View`
+  padding: 0 24px;
+  margin-top: ${RFPercentage(50)}px;
+  position: absolute;
+  width: 100%;
+`;
+
+export const Title = styled.Text`
+  margin-bottom: 10px;
+  font-size: ${RFValue(18)}px;
+  font-family: ${({theme}) => theme.fonts.regular};
+`;
+
+

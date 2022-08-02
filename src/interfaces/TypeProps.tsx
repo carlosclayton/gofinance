@@ -1,5 +1,5 @@
 
-export interface IconProps{
+export interface TypeProps {
     type: 'up' | 'down' | 'total'
-    
+
 }
