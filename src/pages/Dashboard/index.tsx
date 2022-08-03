@@ -17,19 +17,47 @@ import {
 } from './styles'
 import {HighLightCard} from "../../components/HighLightCard";
 import {TransactionCard} from "../../components/TransactionCard";
-import {getBottomSpace} from "react-native-iphone-x-helper";
+import {DataListProps} from "../../interfaces/DataListProps";
 
 export function Dashboard() {
-    const data = [{
-        title: "Desenvolvimento de sistes",
-        amount: "R$ 12.000,00",
-        category: {name: 'Vendas', icon: 'dollar-sign'},
-        date: "13/10/2022"
-    },
+    const data: DataListProps[] = [
         {
+            id: '1',
+            type: {type: 'positive'},
+            title: "Desenvolvimento de sistes",
+            amount: "R$ 12.000,00",
+            category: {name: 'Vendas', icon: 'dollar-sign'},
+            date: "13/10/2022"
+        },
+        {
+            id: '2',
+            type: {type: 'negative'},
             title: "Desenvolvimento de app",
             amount: "R$ 2.000,00",
             category: {name: 'Vendas', icon: 'dollar-sign'},
+            date: "13/10/2022"
+        },
+        {
+            id: '3',
+            type: {type: 'negative'},
+            title: "Aluguel do apartamento",
+            amount: "R$ 500,00",
+            category: {name: 'Aluguel', icon: 'dollar-sign'},
+            date: "13/10/2022"
+        }, {
+            id: '4',
+            type: {type: 'positive'},
+            title: "Venda de computador",
+            amount: "R$ 1.500,00",
+            category: {name: 'Vendas', icon: 'dollar-sign'},
+            date: "13/10/2022"
+        },
+        {
+            id: '5',
+            type: {type: 'positive'},
+            title: "Supermercado do mês",
+            amount: "R$ 500,00",
+            category: {name: 'Alimentação', icon: 'coffee'},
             date: "13/10/2022"
         }];
     return (
@@ -63,11 +91,8 @@ export function Dashboard() {
                 <Title>Listagem</Title>
                 <TransactionList
                     data={data}
+                    keyExtractor={item => item.id}
                     renderItem={({item}) => <TransactionCard data={item}/>}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{
-                        paddingBottom: getBottomSpace()
-                    }}
                 />
             </Transactions>
         </Container>

@@ -7,7 +7,10 @@ export function TransactionCard({data} : DataProps) {
     return (
         <Container>
             <Title>{data.title}</Title>
-            <Amount>{data.amount}</Amount>
+            <Amount type={data.type.type}>
+                {data.type.type === 'negative' && '- '}
+                {data.amount}
+            </Amount>
 
             <Footer>
                 <Category>
