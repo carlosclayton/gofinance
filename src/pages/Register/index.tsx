@@ -1,27 +1,36 @@
 import React from "react";
-import {
+import
+{
     Container,
+    Form,
     Header,
     Title,
-    Form
+    Fields
 } from './styles'
-import {Input} from "../../components/Forms/Input";
-export function Register(){
+
+import { Input } from "../../components/Forms/Input";
+import { Button } from "../../components/Forms/Button";
+
+export function Register() {
     return (
         <Container>
             <Header>
                 <Title>Cadastro</Title>
             </Header>
 
-           <Form>
-               <Input
-                   placeholder="Name"
-               ></Input>
+            <Form>
+                <Fields>
+                    <Input
+                        placeholder="Name"
+                    ></Input>
 
-               <Input
-                   placeholder="Price"
-               ></Input>
-           </Form>
+                    <Input
+                        placeholder="Price"
+                    ></Input>
+                </Fields>
+
+                <Button title="Send"></Button>
+            </Form>
         </Container>
     )
 }
