@@ -14,8 +14,12 @@ interface Props{
     closeSelectCategory: () => void;
 
 }
-export function CategorySelect({category, setCategory, closeSelectCategory} :Props) {
 
+
+export function CategorySelect({category, setCategory, closeSelectCategory} :Props) {
+    function handleCategorySelect(category: Category){
+        setCategory(category)
+    }
     return (
         <Container>
             <Header>
@@ -27,7 +31,10 @@ export function CategorySelect({category, setCategory, closeSelectCategory} :Pro
                 style={{ flex: 1, width: '100%'}}
                 keyExtractor={(item) => item.key}
                 renderItem={({item}) => (
-                    <Category>
+                    <Category
+                        onPress={() => handleCategorySelect(item)}
+                        isActive={category.key === item.key}
+                    >
                         <Icon name={item.icon}></Icon>
                         <Name>{item.name}</Name>
                     </Category>
