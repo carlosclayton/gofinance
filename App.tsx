@@ -7,10 +7,12 @@ useFonts,
     Poppins_500Medium,
     Poppins_700Bold
 } from '@expo-google-fonts/poppins'
-import AppLoading from "expo-app-loading";
+
 
 import {Dashboard} from "./src/pages/Dashboard";
 import {Register} from "./src/pages/Register";
+import {CategorySelect} from "./src/pages/CategorySelect";
+import AppLoading from "expo-app-loading";
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -20,11 +22,11 @@ export default function App() {
     });
 
     if(!fontsLoaded) {
-        return <AppLoading/>
+        return <AppLoading />;
     }
   return (
       <ThemeProvider theme={theme}>
-        <Dashboard />
+        <Register />
       </ThemeProvider>
   );
 }
