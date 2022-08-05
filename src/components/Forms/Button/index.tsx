@@ -7,9 +7,9 @@ import {
 } from "./styles";
 import {ButtonProps} from "../../../interfaces/ButtonProps";
 
-export function Button({title, ...rest}: ButtonProps){
+export function Button({title, onPress, ...rest}: ButtonProps){
     return (
-        <Container {...rest}>
+        <Container onPress={onPress} {...rest}>
             <Title>{title}</Title>
         </Container>
     )

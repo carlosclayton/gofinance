@@ -4,7 +4,7 @@ import {Feather} from "@expo/vector-icons";
 import {getBottomSpace, getStatusBarHeight} from "react-native-iphone-x-helper";
 import {DataListProps} from "../../interfaces/DataListProps";
 import {FlatList} from "react-native";
-import {GestureHandlerRootView} from "react-native-gesture-handler";
+import {BorderlessButton, GestureHandlerRootView} from "react-native-gesture-handler";
 
 export const Container = styled(GestureHandlerRootView)`
   flex: 1;
@@ -95,6 +95,9 @@ export const TransactionList = styled(
         paddingBottom: getBottomSpace()
     }
 })`
+`;
+
+export const LogoutButton = styled(BorderlessButton)`
 
 `;
 
