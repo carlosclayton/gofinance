@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
 import {
     Container,
@@ -19,48 +19,55 @@ import {
 import {HighLightCard} from "../../components/HighLightCard";
 import {TransactionCard} from "../../components/TransactionCard";
 import {DataListProps} from "../../interfaces/DataListProps";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useFocusEffect} from "@react-navigation/native";
 
 export function Dashboard() {
-    const data: DataListProps[] = [
-        {
-            id: '1',
-            type: {type: 'positive'},
-            title: "Desenvolvimento de sistes",
-            amount: "R$ 12.000,00",
-            category: {name: 'Vendas', icon: 'dollar-sign'},
-            date: "13/10/2022"
-        },
-        {
-            id: '2',
-            type: {type: 'negative'},
-            title: "Desenvolvimento de app",
-            amount: "R$ 2.000,00",
-            category: {name: 'Vendas', icon: 'dollar-sign'},
-            date: "13/10/2022"
-        },
-        {
-            id: '3',
-            type: {type: 'negative'},
-            title: "Aluguel do apartamento",
-            amount: "R$ 500,00",
-            category: {name: 'Aluguel', icon: 'dollar-sign'},
-            date: "13/10/2022"
-        }, {
-            id: '4',
-            type: {type: 'positive'},
-            title: "Venda de computador",
-            amount: "R$ 1.500,00",
-            category: {name: 'Vendas', icon: 'dollar-sign'},
-            date: "13/10/2022"
-        },
-        {
-            id: '5',
-            type: {type: 'positive'},
-            title: "Supermercado do mês",
-            amount: "R$ 500,00",
-            category: {name: 'Alimentação', icon: 'coffee'},
-            date: "13/10/2022"
-        }];
+    const [data, setData] = useState<DataListProps[]>([])
+
+    async function loadTransactions(){
+        const transactions = '@gofinaces:transactions';
+        const response = await AsyncStorage.getItem(transactions);
+
+        const allTransactions = response ? JSON.parse(response) : [];
+        const transactionsFormat: DataListProps[] = allTransactions.map((item:DataListProps) => {
+            const amount = Number(item.amount).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+            });
+            const date = Intl.DateTimeFormat('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit'
+            }).format( new Date(item.date))
+
+            return {
+                id: item.id,
+                name: item.name,
+                amount,
+                type: item.type,
+                category: item.category,
+                date: date
+            }
+
+        })
+        setData(transactionsFormat)
+        console.log(transactionsFormat)
+
+
+    }
+    useEffect(() => {
+        loadTransactions();
+
+        // const transactions = '@gofinaces:transactions';
+        // AsyncStorage.removeItem(transactions);
+    }, [])
+
+    useFocusEffect(useCallback(() => {
+        loadTransactions();
+    }, []))
+
+
     return (
         <Container>
 

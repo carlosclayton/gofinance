@@ -4,7 +4,7 @@ import {RectButtonProps} from "react-native-gesture-handler";
 
 interface Props extends RectButtonProps {
     type: 'up' | 'down';
-    title: string;
+    name: string;
     isActive: boolean;
 }
 
@@ -13,11 +13,11 @@ const icons = {
     down: 'arrow-down-circle'
 }
 
-export function TransactionTypeButton({title, type, isActive, ...rest}: Props) {
+export function TransactionTypeButton({name, type, isActive, ...rest}: Props) {
     return (
         <Container {...rest} isActive={isActive} type={type}>
-            <Icon type={type} name={icons[type]}/>
-            <Title>{title}</Title>
+                <Icon type={type} name={icons[type]}/>
+            <Title>{name}</Title>
         </Container>
     )
 }
