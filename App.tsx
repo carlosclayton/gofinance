@@ -12,8 +12,9 @@ useFonts,
 } from '@expo-google-fonts/poppins'
 
 import {AppRoutes} from "./src/routes/app.routes"
-import AppLoading from "expo-app-loading";
+import {ActivityIndicator} from 'react-native'
 import {NavigationContainer} from "@react-navigation/native";
+import {LoadContainer} from "./src/pages/Dashboard/styles";
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -23,7 +24,14 @@ export default function App() {
     });
 
     if(!fontsLoaded) {
-        return <AppLoading />;
+        return <ActivityIndicator style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center"
+        }}
+                color={theme.colors.primary}
+                size="large"
+            />;
     }
   return (
       <ThemeProvider theme={theme}>
