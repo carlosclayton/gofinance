@@ -12,7 +12,7 @@ useFonts,
 } from '@expo-google-fonts/poppins'
 
 import {AppRoutes} from "./src/routes/app.routes"
-import {ActivityIndicator} from 'react-native'
+import {ActivityIndicator, StatusBar} from 'react-native'
 import {NavigationContainer} from "@react-navigation/native";
 import {LoadContainer} from "./src/pages/Dashboard/styles";
 
@@ -36,6 +36,7 @@ export default function App() {
   return (
       <ThemeProvider theme={theme}>
           <NavigationContainer>
+              <StatusBar barStyle={"light-content"} />
               <AppRoutes />
           </NavigationContainer>
       </ThemeProvider>
