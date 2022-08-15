@@ -16,6 +16,8 @@ import {ActivityIndicator, StatusBar} from 'react-native'
 import {NavigationContainer} from "@react-navigation/native";
 import {LoadContainer} from "./src/pages/Dashboard/styles";
 import {Singin} from './src/pages/Singin'
+import {AuthContext} from "./src/components/AuthContext";
+import {AuthProvider} from "./src/hooks/auth";
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -38,7 +40,9 @@ export default function App() {
       <ThemeProvider theme={theme}>
           <NavigationContainer>
               <StatusBar barStyle={"light-content"} />
-              <Singin />
+              <AuthProvider >
+                  <Singin />
+              </AuthProvider>
           </NavigationContainer>
       </ThemeProvider>
   );
