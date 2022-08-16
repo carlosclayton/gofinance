@@ -12,6 +12,7 @@ import {ptBR} from "date-fns/locale";
 import {LoadContainer} from "../Dashboard/styles";
 import {ActivityIndicator} from "react-native";
 import {useFocusEffect} from "@react-navigation/native";
+import {useAuth} from "../../hooks/auth";
 
 
 interface TransactionData {
@@ -35,6 +36,7 @@ export function Resume() {
     const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([]);
     const [selectDate, setSelectDate] = useState(new Date());
     const [isLoading, setIsLoading] = useState(false);
+    const {user} = useAuth();
 
     function handleDateChange(action: 'next' | 'prev'){
         if(action === 'next'){
@@ -46,7 +48,7 @@ export function Resume() {
 
     async function loadData() {
         setIsLoading(true);
-        const transactions = '@gofinaces:transactions';
+        const transactions = `@gofinaces:transactions:${user.id}`;
         const allTransactions = await AsyncStorage.getItem(transactions);
         const current = allTransactions ? JSON.parse(allTransactions) : [];
 

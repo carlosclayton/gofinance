@@ -44,23 +44,30 @@ export function Dashboard() {
     const theme = useTheme();
     const {singOut, user} = useAuth();
 
-    function gestLastTransactionDate(collection:DataListProps[], type:'positive' | 'negative'){
-        const lastTransactions = new Date( Math.max.apply(Math, collection
-            .filter((transaction: DataListProps) => transaction.type === 'positive')
+
+
+    function gestLastTransactionDate(collection: DataListProps[], type: 'positive' | 'negative') {
+
+        const collectionFiltered = collection.filter(transaction => transaction.type === type)
+
+        if(collectionFiltered.length === 0 ){
+            return 0;
+        }
+
+        const lastTransactions = new Date(Math.max.apply(Math, collectionFiltered
             .map((transaction: DataListProps) => new Date(transaction.date).getTime())
         ));
 
-       return `${lastTransactions.getDate()} de ${lastTransactions.toLocaleString('pt-BR', {month: 'long'})}`;
+        return `${lastTransactions.getDate()} de ${lastTransactions.toLocaleString('pt-BR', {month: 'long'})}`;
 
     }
-
 
     let entriesSum = 0;
     let expensive = 0;
     let resume = 0;
 
     async function loadTransactions() {
-        const transactions = '@gofinaces:transactions';
+        const transactions = `@gofinaces:transactions:${user.id}`;
         const response = await AsyncStorage.getItem(transactions);
 
         const allTransactions = response ? JSON.parse(response) : [];
@@ -98,8 +105,7 @@ export function Dashboard() {
 
         const lastTransactionIncomes = gestLastTransactionDate(allTransactions, 'positive')
         const lastTransactionOutcomes = gestLastTransactionDate(allTransactions, 'negative')
-        const totalInterval = `01 a ${ lastTransactionOutcomes }`
-
+        const totalInterval = lastTransactionOutcomes === 0 ? 'Sem transações' : `01 a ${lastTransactionOutcomes}`
 
 
         setHighLightData({
@@ -108,14 +114,14 @@ export function Dashboard() {
                     style: 'currency',
                     currency: 'BRL',
                 }),
-                lastTransaction: `Última saída dia ${lastTransactionIncomes}`
+                lastTransaction: lastTransactionIncomes === 0 ? 'Sem transações' :  `Última saída dia ${lastTransactionIncomes} `
             },
             outcomes: {
                 total: expensive.toLocaleString('pt-BR', {
                     style: 'currency',
                     currency: 'BRL',
                 }),
-                lastTransaction: `Última saída dia ${lastTransactionOutcomes}`
+                lastTransaction: lastTransactionOutcomes === 0 ? 'Sem trasações' : `Última saída dia ${lastTransactionOutcomes}`
             },
             resumes: {
                 total: resume.toLocaleString('pt-BR', {
@@ -171,9 +177,9 @@ export function Dashboard() {
                         <HighLightCards
                         >
                             <HighLightCard type="up" title="Entrada" amount={highLightData.incomes.total}
-                                           lastTransaction={highLightData.incomes.lastTransaction} />
+                                           lastTransaction={highLightData.incomes.lastTransaction}/>
                             <HighLightCard type="down" title="Saída" amount={highLightData.outcomes.total}
-                                           lastTransaction={highLightData.outcomes.lastTransaction} />
+                                           lastTransaction={highLightData.outcomes.lastTransaction}/>
                             <HighLightCard type="total" title="Total" amount={highLightData.resumes.total}
                                            lastTransaction={highLightData.resumes.lastTransaction}/>
                         </HighLightCards>

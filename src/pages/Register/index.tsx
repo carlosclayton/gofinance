@@ -12,6 +12,7 @@ import * as yup from "yup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import uuid from 'react-native-uuid';
 import {useNavigation} from "@react-navigation/native";
+import {useAuth} from "../../hooks/auth";
 
 interface FormData {
     name: string;
@@ -24,8 +25,9 @@ const schema = yup.object({
 
 })
 export function Register() {
+    const {user} = useAuth();
     const navigation  = useNavigation();
-    const transactions = '@gofinaces:transactions';
+    const transactions = `@gofinaces:transactions:${user.id}`;
     const [transactionType, setTransactionType] = useState('');
     const [categoryModalOpen, setCategoryModalOpen] = useState(false);
     const {
