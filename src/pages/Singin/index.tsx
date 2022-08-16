@@ -9,13 +9,21 @@ import {useAuth} from "../../hooks/auth";
 import {Alert} from "react-native";
 
 export function Singin() {
-    const {singInWithGoogle} = useAuth();
+    const {singInWithGoogle, singInWithApple} = useAuth();
 
     async function handleSingInWithGoogle(){
         try{
             await singInWithGoogle();
         }catch (error){
             Alert.alert("Can't connect Google account");
+        }
+    }
+
+    async function handleSingInWithApple(){
+        try{
+            await singInWithApple();
+        }catch (error){
+            Alert.alert("Can't connect Apple account");
         }
     }
 
@@ -45,7 +53,11 @@ export function Singin() {
                         svg={GoogleSvg}
                         onPress={handleSingInWithGoogle}
                     />
-                    <SinginSocialButton title="Entrar com Apple" svg={AppleSvg} />
+                    <SinginSocialButton
+                        title="Entrar com Apple"
+                        svg={AppleSvg}
+                        onPress={handleSingInWithApple}
+                    />
                 </FooterWrapper>
             </Footer>
         </Container>
