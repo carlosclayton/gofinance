@@ -1,30 +1,38 @@
-import React, {useContext} from "react";
-import {Container, Footer, Header, SignTitle, Title, TitleWrapper, FooterWrapper} from "./styles";
+import React, {useState} from "react";
+import {Container, Footer, FooterWrapper, Header, SignTitle, Title, TitleWrapper} from "./styles";
 import AppleSvg from '../../assets/apple-icon.svg';
 import GoogleSvg from '../../assets/google-icon.svg';
 import LogoSvg from '../../assets/logo.svg';
 import {RFValue} from "react-native-responsive-fontsize";
 import {SinginSocialButton} from "../../components/SinginSocialButton";
 import {useAuth} from "../../hooks/auth";
-import {Alert} from "react-native";
+import {ActivityIndicator, Alert} from "react-native";
+import theme from "../../global/styles/theme";
 
 export function Singin() {
+    const [isLoading, setIsLoading] = useState(false);
     const {singInWithGoogle, singInWithApple} = useAuth();
 
-    async function handleSingInWithGoogle(){
-        try{
-            await singInWithGoogle();
-        }catch (error){
+    async function handleSingInWithGoogle() {
+        setIsLoading(true);
+        try {
+            return await singInWithGoogle();
+        } catch (error) {
             Alert.alert("Can't connect Google account");
         }
+
+        setIsLoading(false);
     }
 
-    async function handleSingInWithApple(){
-        try{
-            await singInWithApple();
-        }catch (error){
+    async function handleSingInWithApple() {
+        setIsLoading(true);
+        try {
+            return await singInWithApple();
+        } catch (error) {
             Alert.alert("Can't connect Apple account");
         }
+
+        setIsLoading(false);
     }
 
     return (
@@ -59,6 +67,13 @@ export function Singin() {
                         onPress={handleSingInWithApple}
                     />
                 </FooterWrapper>
+                {
+                    isLoading &&
+                    <ActivityIndicator
+                    color={theme.colors.shape}
+                    style={{marginTop:18}}
+                    />
+                }
             </Footer>
         </Container>
     )

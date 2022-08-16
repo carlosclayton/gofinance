@@ -23,6 +23,7 @@ import {DataListProps} from "../../interfaces/DataListProps";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useFocusEffect} from "@react-navigation/native";
 import {useTheme} from "styled-components"
+import {useAuth} from "../../hooks/auth";
 
 export interface HighlightProps {
     total: string;
@@ -41,6 +42,7 @@ export function Dashboard() {
     const [highLightData, setHighLightData] = useState<HighlightData>({} as HighlightData)
     const [isLoading, setIsLoading] = useState(true);
     const theme = useTheme();
+    const {singOut, user} = useAuth();
 
     function gestLastTransactionDate(collection:DataListProps[], type:'positive' | 'negative'){
         const lastTransactions = new Date( Math.max.apply(Math, collection
@@ -154,14 +156,13 @@ export function Dashboard() {
                             <UserWrapper>
                                 <UserInfo>
                                     <Photo
-                                        source={{uri: "https://avatars.githubusercontent.com/u/1480579?v=4"}}></Photo>
+                                        source={{uri: user.photo}}></Photo>
                                     <User>
                                         <UserGretting>Olá,</UserGretting>
-                                        <UserName>Carlos</UserName>
+                                        <UserName>{user.name}</UserName>
                                     </User>
                                 </UserInfo>
-                                <LogoutButton onPress={() => {
-                                }}>
+                                <LogoutButton onPress={singOut}>
                                     <Icon name="power"/>
                                 </LogoutButton>
                             </UserWrapper>

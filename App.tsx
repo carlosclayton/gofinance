@@ -11,22 +11,19 @@ useFonts,
     Poppins_700Bold
 } from '@expo-google-fonts/poppins'
 
-import {AppRoutes} from "./src/routes/app.routes"
 import {ActivityIndicator, StatusBar} from 'react-native'
-import {NavigationContainer} from "@react-navigation/native";
-import {LoadContainer} from "./src/pages/Dashboard/styles";
-import {Singin} from './src/pages/Singin'
-import {AuthContext} from "./src/components/AuthContext";
-import {AuthProvider} from "./src/hooks/auth";
+import {AuthProvider, useAuth} from "./src/hooks/auth";
+import {Routes} from "./src/routes";
 
 export default function App() {
+    const {userStorageLoading} = useAuth();
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
         Poppins_500Medium,
         Poppins_700Bold
     });
 
-    if(!fontsLoaded) {
+    if(!fontsLoaded || userStorageLoading) {
         return <ActivityIndicator style={{
                 flex: 1,
                 justifyContent: "center",
@@ -38,12 +35,11 @@ export default function App() {
     }
   return (
       <ThemeProvider theme={theme}>
-          <NavigationContainer>
               <StatusBar barStyle={"light-content"} />
               <AuthProvider >
-                  <Singin />
+                  <Routes />
               </AuthProvider>
-          </NavigationContainer>
+
       </ThemeProvider>
   );
 }
